@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Blocked increasing and decreasing page by user -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
+  <link rel="stylesheet" href="./style.css">
+  <title>Diamonds</title>
+</head>
+<body>
+  <div class="game">
+    <div class="game__container">
+      <div class="game__layer start-screen" id="js-start-screen">
+        <button class="start-screen__button" id="js-start-game"></button>
+        <button class="start-screen__button start-screen__button--is-setting" id="js-settings-button"></button>
+      </div>
+      <div class="game__layer level-select hidden" id="js-level-select-screen"></div>
+    </div>
+  </div>
+  <!-- Importing script -->
+  <script src="./game.esm.js" type="module"></script>
+</body>
+</html>
