@@ -1,4 +1,6 @@
+import { canvas } from "./Canvas.esm.js";
 import Common, { SCREEN_OBJECT } from "./Common.esm.js";
+import { DATALOADED_EVENT_NAME, loader } from "./Loader.esm.js";
 
 const LEVEL_SELECT_ID = 'js-level-select-screen';
 const LEVEL_SELECT_BUTTON_ID = 'level-select__button';
@@ -31,8 +33,15 @@ class LevelSelect extends Common {
   }
 
   buttonClickHandler(e) {
-    this.changeScreen(this.element, SCREEN_OBJECT.HIDDEN_SCREEN)
-    //here will be changed screen on canvas with game
+    this.changeScreen(this.element, SCREEN_OBJECT.HIDDEN_SCREEN);
+    this.changeScreen(canvas.element, SCREEN_OBJECT.VISIBLE_SCREEN);
+    console.log(e.currentTarget.value)
+    this.loadLevel(e.currentTarget.value);
+  }
+
+  loadLevel = lvl => {
+    const backGround = loader.loadImage('SourceFolder/images/levelbackground.png')
+    document.addEventListener(DATALOADED_EVENT_NAME, () => console.log('Załadowano wszystko'));
   }
 }
 
