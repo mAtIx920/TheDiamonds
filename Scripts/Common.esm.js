@@ -7,7 +7,11 @@ export const SCREEN_OBJECT = {
 // Class which answer for finding elements in game
 class Common {
   constructor(elementId) {
-    this.element = this.bindToElement(elementId)
+    if(typeof elementId === 'undefined') {
+      return;
+    } else {
+      this.element = this.bindToElement(elementId)
+    } 
   }
 
   bindToElement = elementFindById => {
