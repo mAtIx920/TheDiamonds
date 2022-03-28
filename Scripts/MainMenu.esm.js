@@ -1,5 +1,6 @@
 import Common, { SCREEN_OBJECT } from './Common.esm.js';
 import { levelSelect } from './LevelSelect.esm.js';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from './Canvas.esm.js';
 
 const SCALE_PROPERTY = '--scale-value';
 const START_GAME_BUTTON_ID = 'js-start-game';
@@ -32,10 +33,10 @@ class MainMenu extends Common {
     console.log('Opcje ustawienia')
   }
 
-  //Function which aswer for resizeing game window
+  //Function which answer for resizeing game window
   resizeGameWindow = () => {
     const { innerWidth: width, innerHeight: height } = window;
-    const scale = Math.min(width / 640, height / 480)
+    const scale = Math.min(width / CANVAS_WIDTH, height / CANVAS_HEIGHT)
 
     document.documentElement.style.setProperty(SCALE_PROPERTY, scale)
   }
