@@ -42,8 +42,8 @@ class LevelSelect extends Common {
   }
 
   loadLevel = lvl => {
-    media.backgroundImage = loader.loadImage('SourceFolder/images/levelbackground.png')
-    document.addEventListener(DATALOADED_EVENT_NAME, () => game.playLevel(lvl));
+    media.backgroundImage = loader.loadImage('SourceFolder/images/levelbackground.png');
+    window.addEventListener(DATALOADED_EVENT_NAME, () => game.playLevel(lvl));
   }
 }
 

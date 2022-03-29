@@ -27,6 +27,7 @@ class Loader extends Common {
 
     image.src = imageUrl;
     image.addEventListener('load', e => this.loadItem(e), false);
+    console.log(image)
 
     return image;
   }
@@ -41,7 +42,7 @@ class Loader extends Common {
     if(this.loadedCounter === this.totalCounter) {
       this.clearProps();
       this.changeScreen(this.element, SCREEN_OBJECT.HIDDEN_SCREEN);
-      document.dispatchEvent(new CustomEvent(DATALOADED_EVENT_NAME));
+      window.dispatchEvent(new CustomEvent(DATALOADED_EVENT_NAME));
     }
   }
 

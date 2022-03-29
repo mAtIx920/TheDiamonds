@@ -5,7 +5,7 @@ class Media {
   }
 
   set backgroundImage(imageObject) {
-    if(imageObject instanceof Image) return;
+    if(!(imageObject instanceof Image)) return;
     this._backgroundImage = imageObject;
   }
 
