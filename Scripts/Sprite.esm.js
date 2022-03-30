@@ -1,6 +1,6 @@
 import { canvas } from "./Canvas.esm.js";
 
-class Sprite {
+ export class Sprite {
   constructor(x, y, width, height, spriteImage, numberOfSprites = 1, offset = {x: 0, y: 0}) {
     this.x = x;
     this.y = y;
@@ -12,8 +12,8 @@ class Sprite {
     this.alpha = 255;
   }
 
-  draw = (numberOfSprites = 0, ratio = 1) => {
-    if(numberOfSprites > this.numberOfSprites) {
+  draw = (numberOfSprite = 0, ratio = 1) => {
+    if(numberOfSprite > this.numberOfSprites) {
       return;
     }
 
@@ -23,7 +23,7 @@ class Sprite {
 
     canvas.context.drawImage(
       this.spriteImage,
-      numberOfSprites * this.width,
+      numberOfSprite * this.width,
       0,
       this.width,
       this.height,

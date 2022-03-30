@@ -4,6 +4,7 @@ class Media {
     this._diamondsSprite = null;
   }
 
+  //This takes background images
   set backgroundImage(imageObject) {
     if(!(imageObject instanceof Image)) return;
     this._backgroundImage = imageObject;
@@ -11,6 +12,16 @@ class Media {
 
   get backgroundImage() {
     return this._backgroundImage;
+  }
+
+  //This takes diamond images
+  set diamondsSprite(imageObject) {
+    if(!(imageObject instanceof Image)) return;
+    this._diamondsSprite = imageObject;
+  }
+
+  get diamondsSprite() {
+    return this._diamondsSprite;
   }
 }
 
