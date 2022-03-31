@@ -12,8 +12,8 @@ import { canvas } from "./Canvas.esm.js";
     this.alpha = 255;
   }
 
-  draw = (numberOfSprite = 0, ratio = 1) => {
-    if(numberOfSprite > this.numberOfSprites) {
+  draw(numberOfSprites = 0, ratio = 1) {
+    if(numberOfSprites > this.numberOfSprites) {
       return;
     }
 
@@ -23,7 +23,7 @@ import { canvas } from "./Canvas.esm.js";
 
     canvas.context.drawImage(
       this.spriteImage,
-      numberOfSprite * this.width,
+      numberOfSprites * this.width,
       0,
       this.width,
       this.height,

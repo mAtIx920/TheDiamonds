@@ -1,7 +1,7 @@
 import { canvas } from "./Canvas.esm.js";
 import Common, { SCREEN_OBJECT } from "./Common.esm.js";
 import { Diamond } from "./Diamond.esm.js";
-import { gameLevelsInfo } from './levelsInfo.esm.js';
+import { gameLevelsInfo } from './Data/levelsInfo.esm.js';
 import { DATALOADED_EVENT_NAME } from "./Loader.esm.js";
 import { media } from "./Media.esm.js";
 

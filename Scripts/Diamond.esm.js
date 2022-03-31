@@ -2,7 +2,7 @@ import { GAME_BOARD_X_OFFSET, GAME_BOARD_Y_OFFSET } from "./Game.esm.js";
 import { Sprite } from "./Sprite.esm.js";
 
 const DIAMOND_ORIGINAL_SIZE = 32;
-const DIAMOND_SIZE = 48;
+export const DIAMOND_SIZE = 48;
 const NUMBER_OF_DIAMONDS_TYPES = 6;
 
 const DIAMOND_ZOOM = DIAMOND_SIZE / DIAMOND_ORIGINAL_SIZE;
@@ -20,7 +20,7 @@ export class Diamond extends Sprite {
     this.match = 0;
   }
 
-  draw() {
+  draw = () => {
     super.draw(this.kind, DIAMOND_ZOOM);
   }
 }
