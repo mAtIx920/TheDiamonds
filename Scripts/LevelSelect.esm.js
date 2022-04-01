@@ -37,7 +37,6 @@ class LevelSelect extends Common {
   buttonClickHandler(e) {
     this.changeScreen(this.element, SCREEN_OBJECT.HIDDEN_SCREEN);
     this.changeScreen(canvas.element, SCREEN_OBJECT.VISIBLE_SCREEN);
-    console.log(e.currentTarget.value)
     this.loadLevel(e.currentTarget.value);
   }
 
