@@ -1,21 +1,23 @@
-import { DIAMOND_SIZE } from "../Diamond.esm.js";
+export const DIAMOND_SIZE = 48;
+export const GAME_BOARD_X_OFFSET = 40;
+export const GAME_BOARD_Y_OFFSET = 20;
 
 const EMPTY_BLOCK_NUMBER = 99;
 
 export const gameLevelsInfo = [
   {
     level: 1,
-    leftMovements: 30,
+    leftMovements: 30,	
     pointsToWin: 7000,
     board: [
-      {x: 0 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 0, kind: EMPTY_BLOCK,},
-			{x: 1 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 1, kind: EMPTY_BLOCK,},
-			{x: 2 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 2, kind: EMPTY_BLOCK,},
-			{x: 3 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 3, kind: EMPTY_BLOCK,},
-			{x: 4 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 4, kind: EMPTY_BLOCK,},
-			{x: 5 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 5, kind: EMPTY_BLOCK,},
-			{x: 6 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 6, kind: EMPTY_BLOCK,},
-			{x: 7 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 7, kind: EMPTY_BLOCK,},
+      {x: 0 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 0, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 1 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 1, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 2 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 2, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 3 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 3, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 4 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 4, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 5 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 5, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 6 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 6, kind: EMPTY_BLOCK_NUMBER,},
+			{x: 7 * DIAMOND_SIZE, y: -1 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 0, column: 7, kind: EMPTY_BLOCK_NUMBER,},
 
 			{x: 0 * DIAMOND_SIZE, y: 0 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 1, column: 0, kind: 1,},
 			{x: 1 * DIAMOND_SIZE, y: 0 * DIAMOND_SIZE + GAME_BOARD_Y_OFFSET, row: 1, column: 1, kind: 1,},
