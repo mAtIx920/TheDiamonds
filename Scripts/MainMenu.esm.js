@@ -2,7 +2,7 @@ import Common, { SCREEN_OBJECT } from './Common.esm.js';
 import { levelSelect } from './LevelSelect.esm.js';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from './Canvas.esm.js';
 
-const SCALE_PROPERTY = '--scale-value';
+export const SCALE_PROPERTY = '--scale-value';
 const START_GAME_BUTTON_ID = 'js-start-game';
 const START_SCREEN_ID = 'js-start-screen';
 const START_SETTINGS_BUTTON_ID = 'js-settings-button';

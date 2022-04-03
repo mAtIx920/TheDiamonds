@@ -21,20 +21,17 @@ class Loader extends Common {
   loadImage = imageUrl => {
     this.changeScreen(this.element, SCREEN_OBJECT.VISIBLE_SCREEN);
     this.isAllLoaded = false;
-    // this.totalCounter++;
     this.totalElement = ++this.totalCounter;
     const image = new Image();
 
     image.src = imageUrl;
     image.addEventListener('load', e => this.loadItem(e), false);
-    console.log(image)
 
     return image;
   }
 
   //Function which manage for loading items of the game
   loadItem = e => {
-    console.log(e)
     e.target.removeEventListener(e.type, this.loadItem, false);
     this.loadedCounter++;
     this.currentElement.textContent = this.loadedCounter;

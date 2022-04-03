@@ -7,6 +7,8 @@ export class GameState {
     let _gameBoard = diamonds.map(({x, y, row, column, kind}) => new Diamond(x, y, row, column, kind, diamondsSpriteImage))
     this._pointsToWin = pointsToWin;
     this._level = level;
+    this.isSwaping = false;
+    this.isMoving = false;
 
     //Function which deals with our gameplay, get and set our stats and other
     this.getLeftMovement = () => _leftMovement;
