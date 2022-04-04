@@ -18,6 +18,8 @@ export class GameState {
     this.increasePlayerPoints = points => _playerScores += points;
     this.isPlayerWon = () => _playerScores >= this._pointsToWin;
     this.getGameBoard = () => _gameBoard;
+    this.getIsSwaping = () => this.isSwaping;
+    this.getIsMoving = () => this.isMoving;
   }
 
   get pointsToWin() {
