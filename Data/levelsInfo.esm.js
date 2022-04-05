@@ -1,8 +1,7 @@
 export const DIAMOND_SIZE = 48;
 export const GAME_BOARD_X_OFFSET = 40;
 export const GAME_BOARD_Y_OFFSET = 20;
-
-const EMPTY_BLOCK_NUMBER = 99;
+export const EMPTY_BLOCK_NUMBER = 99;
 
 export const gameLevelsInfo = [
   {

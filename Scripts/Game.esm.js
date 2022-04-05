@@ -2,13 +2,15 @@ import { canvas } from "./Canvas.esm.js";
 import Common, { SCREEN_OBJECT } from "./Common.esm.js";
 import { DATALOADED_EVENT_NAME } from "./Loader.esm.js";
 import { media } from "./Media.esm.js";
-import { DIAMOND_SIZE, gameLevelsInfo, GAME_BOARD_X_OFFSET, GAME_BOARD_Y_OFFSET } from "../Data/levelsInfo.esm.js";
+import { DIAMOND_SIZE, gameLevelsInfo, GAME_BOARD_X_OFFSET, GAME_BOARD_Y_OFFSET, EMPTY_BLOCK_NUMBER } from "../Data/levelsInfo.esm.js";
 import { GameState } from "./GameState.esm.js";
 import { mouseController } from "./MouseController.esm.js";
+import { NUMBER_OF_DIAMONDS_TYPES } from "./Diamond.esm.js";
 
 const SWAPING_SPEED = 8;
 const DIAMONDS_ARRAY_WIDTH = 8;
-const DIAMONDS_ARRAY_HEIGHT = DIAMONDS_ARRAY_WIDTH + 1; //+1 is invisible line of diamonds
+const DIAMONDS_ARRAY_HEIGHT = DIAMONDS_ARRAY_WIDTH + 1; // +1 is invisible line of diamonds
+const LAST_ELEMENT_DIAMONDS_ARRAY = DIAMONDS_ARRAY_WIDTH * DIAMONDS_ARRAY_HEIGHT - 1;
 
 class Game extends Common {
   constructor() {
@@ -27,8 +29,11 @@ class Game extends Common {
   animate = () => {
     this.handleMouseState();
     this.handleMouseClick();
+    this.findMatches();
     this.moveDiamonds();
+    this.countScores();
     this.revertSwap();
+    this.clearMatches();
     canvas.drawGameOnCanvas(this.gameState);
     this.gameState.getGameBoard().forEach(diamond => diamond.draw())
     this.animationFrame = window.requestAnimationFrame(() => this.animate())
@@ -91,8 +96,42 @@ class Game extends Common {
     mouseController.clicked = false;
   }
 
+  //Function checking whether previous diamond and subsequent diamonds have the same kind
+  findMatches = () => {
+    this.gameState.getGameBoard().forEach((diamond, index, diamondsBoard) => {
+      //Checkind diamonds in horizontal axis
+      if(diamond.kind === EMPTY_BLOCK_NUMBER || index < DIAMONDS_ARRAY_WIDTH || index === LAST_ELEMENT_DIAMONDS_ARRAY) {
+        return;
+      }
+
+      if(diamondsBoard[index - 1].kind === diamond.kind && diamondsBoard[index + 1].kind === diamond.kind) {
+        console.log('jest')
+        if(Math.floor((index - 1) / DIAMONDS_ARRAY_WIDTH) === Math.floor((index + 1) / DIAMONDS_ARRAY_WIDTH)) {
+          for(let counter = -1; counter <= 1; counter++) {
+            diamondsBoard[index + counter].match++;
+            
+            // console.log('jest')
+          }
+        }
+      }
+
+      //Checking diamonds in vertical axis
+      if(
+        index >= DIAMONDS_ARRAY_WIDTH && index < LAST_ELEMENT_DIAMONDS_ARRAY - DIAMONDS_ARRAY_WIDTH + 1 &&
+        diamondsBoard[index - DIAMONDS_ARRAY_WIDTH].kind === diamond.kind &&
+        diamondsBoard[index + DIAMONDS_ARRAY_WIDTH].kind === diamond.kind
+      ) {
+        if((index - DIAMONDS_ARRAY_WIDTH) % DIAMONDS_ARRAY_WIDTH === (index + DIAMONDS_ARRAY_WIDTH) % DIAMONDS_ARRAY_WIDTH) {
+          for(let counter = -DIAMONDS_ARRAY_WIDTH; counter <= DIAMONDS_ARRAY_WIDTH; counter += DIAMONDS_ARRAY_WIDTH) {
+            diamondsBoard[index + counter].match++;
+          }
+        }
+      }
+    })
+  }
+
   //Function which creates index of diamond in table
-  swapDiamonds() {
+  swapDiamonds = () => {
     const firstDiamond = mouseController.firstClick.y * DIAMONDS_ARRAY_WIDTH + mouseController.firstClick.x;
     const secondDiamond = mouseController.secondClick.y * DIAMONDS_ARRAY_WIDTH + mouseController.secondClick.x;
 
@@ -126,10 +165,65 @@ class Game extends Common {
     })
   }
 
+  //Function which counts our points and diamonds matches
+  countScores = () => {
+    this.scores = 0;
+    this.gameState.getGameBoard().forEach(diamond => this.scores += diamond.match);
+
+    if(!this.gameState.getIsMoving() && this.scores) {
+      this.gameState.increasePlayerPoints(this.scores);
+    }
+  }
+
+  //Undo when diamonds are not being matched
   revertSwap = () => {
     if(this.gameState.getIsSwaping() && !this.gameState.getIsMoving()) {
+      if(!this.scores) {
+        this.swapDiamonds();
+        this.gameState.increasePointsMovement();
+      }
+
       this.gameState.isSwaping = false;
     }
+  }
+
+  //Clear matching diamonds when diamonds are being matched 
+  clearMatches = () => {
+    if(this.gameState.getIsMoving()) {
+      return;
+    }
+
+    //Here we check if one diamonds match to the others
+    this.gameState.getGameBoard().forEach((_, index, diamondsBoard) => {
+      const diamondsIndex = diamondsBoard.length - 1 - index;
+      const column = Math.floor(diamondsIndex / DIAMONDS_ARRAY_WIDTH);
+      const row = Math.floor(diamondsIndex % DIAMONDS_ARRAY_WIDTH);
+
+      if(diamondsBoard[diamondsIndex].match) {
+        for(let counter = column; counter >= 0; counter--) {
+          if(!diamondsBoard[counter * DIAMONDS_ARRAY_WIDTH + row].match) {
+            this.swap(diamondsBoard[counter * DIAMONDS_ARRAY_WIDTH + row], diamondsBoard[diamondsIndex]);
+            break;
+          }
+        }
+      }
+    })
+
+    //Here we add another diamond
+    this.gameState.getGameBoard().forEach((diamond, index) => {
+      const row = Math.floor(index % DIAMONDS_ARRAY_WIDTH) * DIAMOND_SIZE;
+
+      if(index < DIAMONDS_ARRAY_WIDTH){
+        diamond.kind = EMPTY_BLOCK_NUMBER;
+        diamond.match = 0;
+      } else if(diamond.match || diamond.kind === EMPTY_BLOCK_NUMBER) {
+        diamond.kind = Math.floor(Math.random() * NUMBER_OF_DIAMONDS_TYPES);
+        diamond.y = 0;
+        diamond.x = row;
+        diamond.match = 0;
+        diamond.alpha = 255;
+      }
+    })
   }
 
   //Function changing props of diamonds
