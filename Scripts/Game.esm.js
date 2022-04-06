@@ -11,6 +11,7 @@ const SWAPING_SPEED = 8;
 const DIAMONDS_ARRAY_WIDTH = 8;
 const DIAMONDS_ARRAY_HEIGHT = DIAMONDS_ARRAY_WIDTH + 1; // +1 is invisible line of diamonds
 const LAST_ELEMENT_DIAMONDS_ARRAY = DIAMONDS_ARRAY_WIDTH * DIAMONDS_ARRAY_HEIGHT - 1;
+const TRANSPARENCY_SPEED = 30;
 
 class Game extends Common {
   constructor() {
@@ -31,6 +32,7 @@ class Game extends Common {
     this.handleMouseClick();
     this.findMatches();
     this.moveDiamonds();
+    this.hideAnimation();
     this.countScores();
     this.revertSwap();
     this.clearMatches();
@@ -161,6 +163,19 @@ class Game extends Common {
       
       if(dx || dy) {
         this.gameState.isMoving = true; 
+      }
+    })
+  }
+
+  hideAnimation = () => {
+    if(this.gameState.getIsMoving()) {
+      return;
+    }
+
+    this.gameState.getGameBoard().forEach(diamond => {
+      if(diamond.match && diamond.alpha > TRANSPARENCY_SPEED) {
+        diamond.alpha -= TRANSPARENCY_SPEED;
+        this.gameState.isMoving = true;
       }
     })
   }
