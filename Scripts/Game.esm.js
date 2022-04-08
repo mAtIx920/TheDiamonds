@@ -6,6 +6,7 @@ import { DIAMOND_SIZE, gameLevelsInfo, GAME_BOARD_X_OFFSET, GAME_BOARD_Y_OFFSET,
 import { GameState } from "./GameState.esm.js";
 import { mouseController } from "./MouseController.esm.js";
 import { NUMBER_OF_DIAMONDS_TYPES } from "./Diamond.esm.js";
+import { resultScreen } from "./ResultScreen.esm.js";
 
 const SWAPING_SPEED = 8;
 const DIAMONDS_ARRAY_WIDTH = 8;
@@ -36,9 +37,9 @@ class Game extends Common {
     this.countScores();
     this.revertSwap();
     this.clearMatches();
+    this.checkEndGameHandler();
     canvas.drawGameOnCanvas(this.gameState);
     this.gameState.getGameBoard().forEach(diamond => diamond.draw())
-    this.animationFrame = window.requestAnimationFrame(() => this.animate())
   }
 
   //Function which checks whether diamond was clicked
@@ -239,6 +240,25 @@ class Game extends Common {
         diamond.alpha = 255;
       }
     })
+  }
+
+  checkEndGameHandler = () => {
+    if(
+      !this.gameState.getLeftMovement() && 
+      !this.gameState.getIsMoving() && 
+      !this.gameState.getIsSwaping()
+    ) {
+      const isPlayerWin = this.gameState.isPlayerWon();
+
+      if(isPlayerWin && gameLevelsInfo[this.gameState.level]) {
+        console.log('Kolejny level odblokowany')
+      }
+
+      resultScreen.viewResultScreen(isPlayerWin, this.gameState.getPlayerPoints(), this.gameState.level)
+      
+    } else {
+      this.animationFrame = window.requestAnimationFrame(() => this.animate())
+    }
   }
 
   //Function changing props of diamonds
