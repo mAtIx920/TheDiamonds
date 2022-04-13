@@ -40,6 +40,7 @@ class Game extends Common {
     this.clearMatches(); 
     canvas.drawGameOnCanvas(this.gameState);
     this.gameState.getGameBoard().forEach(diamond => diamond.draw());
+    this.checkPossibilityMovement();
     this.checkEndGameHandler();
   }
 
@@ -241,6 +242,184 @@ class Game extends Common {
         diamond.alpha = 255;
       }
     })
+  }
+
+  checkPossibilityMovement = () => {
+    if(this.gameState.getIsMoving()) {
+      return false;
+    }
+
+    this.isPossibleToMove = this.gameState.getGameBoard().some((diamond, index, diamondsBoard) => {
+      if(diamond.kind === EMPTY_BLOCK_NUMBER) {
+        return false;
+      }
+
+      //move right diamonds => check in row
+      if(
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 3 &&
+        diamond.kind === diamondsBoard[index + 2].kind &&
+        diamond.kind === diamondsBoard[index + 3].kind
+      ) {
+        return true;
+      }
+
+      //move right diamonds => check if diamond is in the middle of column
+      if(
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 1 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH + 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH + 1].kind
+      ) {
+        return true;
+      }
+
+      //move right diamonds => check if diamond is on the top of the column
+      if(
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 2 &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH + 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH * 2 + 1].kind
+      ) {
+        return true;
+      }
+
+      //move right diamonds => check if diamond is in the bottom of the column
+      if(
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 2 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH + 1].kind &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH * 2 + 1].kind
+      ) {
+        return true;
+      }
+
+      //move left diamonds => check in row
+      if(
+        index % DIAMONDS_ARRAY_WIDTH > 2 &&
+        diamond.kind === diamondsBoard[index - 2].kind &&
+        diamond.kind === diamondsBoard[index - 3].kind
+      ) {
+        return true;
+      }
+
+      //move left diamonds => check if diamond is in the middle of column
+      if(
+        index % DIAMONDS_ARRAY_WIDTH &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 1 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH - 1].kind
+      ) {
+        return true;
+      }
+
+      //move left diamonds => check if diamond is on the top of column
+      if(
+        index % DIAMONDS_ARRAY_WIDTH &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 2 &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH * 2 - 1].kind
+      ) {
+        return true;
+      }
+
+      //move left diamonds => check if diamond is on the bottom of column
+      if(
+        index % DIAMONDS_ARRAY_WIDTH &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 2 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH * 2 - 1].kind
+      ) {
+        return true;
+      }
+
+      //move down diamonds => check if diamond is in column
+      if(
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 3 &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH * 2].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH * 3].kind
+      ) {
+        return true;
+      }
+
+      //move down diamonds => check if diamond is in the middle of row
+      if(
+        index % DIAMONDS_ARRAY_WIDTH &&
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 1 &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH + 1].kind
+      ) {
+        return true;
+      }
+
+      //move down diamonds =>check if diamond is on the left edge of row
+      if(
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 2 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 1 &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH + 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH + 2].kind
+      ) {
+        return true;
+      }
+
+      //move down diamonds => check if diamond is on the right edge of row
+      if(
+        index % DIAMONDS_ARRAY_WIDTH > 1 &&
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) < DIAMONDS_ARRAY_HEIGHT - 1 &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index + DIAMONDS_ARRAY_WIDTH - 2].kind
+      ) {
+        return true;
+      }
+
+      //move up diamonds => check in column
+      if(
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 3 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH * 2].kind &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH * 3].kind
+      ) {
+        return true;
+      }
+
+      //move up diamond => check if diamond is in the middle of row
+      if(
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 1 &&
+        index % DIAMONDS_ARRAY_WIDTH &&
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 1 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH + 1].kind
+      ) {
+        return true;
+      }
+
+      //move up diamonds => check if diamond is on the left edge of row
+      if(
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 1 &&
+        index % DIAMONDS_ARRAY_WIDTH < DIAMONDS_ARRAY_WIDTH - 2 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH + 1].kind &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH + 2].kind
+      ) {
+        return true;
+      }
+
+      //move up diamonds => check if diamond is on the right edge of row
+      if(
+        Math.floor(index / DIAMONDS_ARRAY_WIDTH) > 1 &&
+        index % DIAMONDS_ARRAY_WIDTH > 1 &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH - 1].kind &&
+        diamond.kind === diamondsBoard[index - DIAMONDS_ARRAY_WIDTH - 2].kind
+      ) {
+        return true;
+      }
+      
+      if(!this.isPossibleToMove) {
+        this.gameState.mixDiamonds()
+      }
+      
+      return false;
+    });
   }
 
   checkEndGameHandler = () => {
