@@ -16,6 +16,7 @@ export class GameState {
     this.increasePointsMovement = () => _leftMovement++;
     this.getPlayerPoints = () => _playerScores;
     this.increasePlayerPoints = points => _playerScores += points;
+    this.clearPLayerPoints = () => _playerScores = 0
     this.isPlayerWon = () => _playerScores >= this._pointsToWin;
     this.getGameBoard = () => _gameBoard;
     this.getIsSwaping = () => this.isSwaping;

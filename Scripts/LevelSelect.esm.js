@@ -1,30 +1,35 @@
+import { userData } from "../Data/UserData.esm.js";
 import { canvas } from "./Canvas.esm.js";
 import Common, { SCREEN_OBJECT } from "./Common.esm.js";
 import { game } from "./Game.esm.js";
 import { DATALOADED_EVENT_NAME, loader } from "./Loader.esm.js";
 import { media } from "./Media.esm.js";
+import { gameLevelsInfo } from "../Data/levelsInfo.esm.js";
 
 const LEVEL_SELECT_ID = 'js-level-select-screen';
 const LEVEL_SELECT_BUTTON_ID = 'level-select__button';
-const gameLevels = [
-  {
-    level: 1,
-  },
-  {
-    level: 2,
-  },
-  {
-    level: 3,
-  }
-]
 
 class LevelSelect extends Common {
   constructor() {
     super(LEVEL_SELECT_ID);
-    gameLevels.forEach(level => this.createButton(level.level))
+  }
+
+  refreshButtonsHandler = () => {
+    while(this.element.firstChild) {
+      console.log('przyciski')
+      this.element.removeChild(this.element.firstChild);
+    }
+
+
+    gameLevelsInfo.some(gameLevel => this.createButton(gameLevel.level))
   }
 
   createButton = value => {
+    
+    if(!userData.checkAvaiabilityLevel(value)) {
+      return true;
+    }
+
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.classList.add(LEVEL_SELECT_BUTTON_ID);

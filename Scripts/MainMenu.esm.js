@@ -25,6 +25,7 @@ class MainMenu extends Common {
   }
 
   showLevelScreen = () => {
+    levelSelect.refreshButtonsHandler();
     this.changeScreen(this.element, SCREEN_OBJECT.HIDDEN_SCREEN)
     this.changeScreen(levelSelect.element, SCREEN_OBJECT.VISIBLE_SCREEN)
   }
