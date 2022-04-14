@@ -10,7 +10,7 @@ import { resultScreen } from "./ResultScreen.esm.js";
 import { userData } from "../Data/UserData.esm.js";
 
 const SWAPING_SPEED = 8;
-const DIAMONDS_ARRAY_WIDTH = 8;
+export const DIAMONDS_ARRAY_WIDTH = 8;
 const DIAMONDS_ARRAY_HEIGHT = DIAMONDS_ARRAY_WIDTH + 1; // +1 is invisible line of diamonds
 const LAST_ELEMENT_DIAMONDS_ARRAY = DIAMONDS_ARRAY_WIDTH * DIAMONDS_ARRAY_HEIGHT - 1;
 const TRANSPARENCY_SPEED = 30;
@@ -62,7 +62,7 @@ class Game extends Common {
     const yClicked = Math.floor((mouseController.y - GAME_BOARD_Y_OFFSET) / DIAMOND_SIZE);
 
     //Condition which proceeds when we click apart from table with diamonds
-    if(!yClicked || xClicked < 0 || xClicked >= DIAMONDS_ARRAY_WIDTH || yClicked >= DIAMONDS_ARRAY_HEIGHT) {
+    if(!yClicked || xClicked >= DIAMONDS_ARRAY_WIDTH || yClicked >= DIAMONDS_ARRAY_HEIGHT) {
       mouseController.state = 0;
 
       return;
@@ -413,13 +413,13 @@ class Game extends Common {
       ) {
         return true;
       }
-      
-      if(!this.isPossibleToMove) {
-        this.gameState.mixDiamonds()
-      }
-      
+         
       return false;
     });
+
+    if(!this.isPossibleToMove) {
+      this.gameState.mixDiamonds()
+    }
   }
 
   checkEndGameHandler = () => {
@@ -443,9 +443,6 @@ class Game extends Common {
       }
 
       resultScreen.viewResultScreen(isPlayerWin, this.gameState.getPlayerPoints(), currentLevel)
-      this.gameState.clearPLayerPoints();
-      window.cancelAnimationFrame(this.animationFrame)
-      
     } else {
       this.animationFrame = window.requestAnimationFrame(() => this.animate())
     }
