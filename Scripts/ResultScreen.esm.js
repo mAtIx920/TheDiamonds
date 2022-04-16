@@ -47,6 +47,7 @@ class ResultScreen extends Common {
 
   backButtonClick() {
     this.changeScreen(canvas.element, SCREEN_OBJECT.HIDDEN_SCREEN);
+    this.changeScreen(mainMenu.settingsLayerElement, SCREEN_OBJECT.HIDDEN_SCREEN);
     this.changeScreen(this.element, SCREEN_OBJECT.HIDDEN_SCREEN);
     mainMenu.showLevelScreen()
   }

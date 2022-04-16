@@ -7,6 +7,8 @@ export const SCALE_PROPERTY = '--scale-value';
 const START_GAME_BUTTON_ID = 'js-start-game';
 const START_SCREEN_ID = 'js-start-screen';
 const START_SETTINGS_BUTTON_ID = 'js-settings-button';
+const GAME_SETTINGS_LAYER_ID = 'js-game-settings-layer';
+const GAME_SETTINGS_BUTTON_ID = 'js-game-settings-button';
 
 //Class where is start layout the game
 class MainMenu extends Common {
@@ -19,10 +21,13 @@ class MainMenu extends Common {
   
   bindGameElements = () => {
     const gameStartButton = this.bindToElement(START_GAME_BUTTON_ID);
-    const gamesSettingsButton = this.bindToElement(START_SETTINGS_BUTTON_ID);
+    const gameSettingsButton = this.bindToElement(START_SETTINGS_BUTTON_ID);
+    const buttonSettingsLayer = this.bindToElement(GAME_SETTINGS_BUTTON_ID);
+    this.settingsLayerElement = this.bindToElement(GAME_SETTINGS_LAYER_ID);
 
     gameStartButton.addEventListener('click', this.showLevelScreen);
-    gamesSettingsButton.addEventListener('click', this.showSettingsScreen);    
+    gameSettingsButton.addEventListener('click', this.showSettingsScreen);
+    buttonSettingsLayer.addEventListener('click', () => this.showSettingsScreen())  
   }
 
   showLevelScreen = () => {

@@ -18,7 +18,9 @@ class Media {
       this.musicVolume = 1;
     }
 
-    this._backgroundMusic.volume = this.musicVolume;
+    if(this._backgroundMusic) {
+      this._backgroundMusic.volume = this.musicVolume;
+    }
   }
 
   decreaseMusicVolume = () => {
@@ -27,7 +29,9 @@ class Media {
       this.musicVolume = 0;
     }
 
-    this._backgroundMusic.volume = this.musicVolume;
+    if(this._backgroundMusic) {
+      this._backgroundMusic.volume = this.musicVolume;
+    }
   }
 
   //Sound swaping diamonds service
@@ -37,7 +41,10 @@ class Media {
       this.soundVolume  = 1;
     }
 
-    this._swapSound.volume = this.soundVolume ;
+    if(this._swapSound) {
+      this._swapSound.volume = this.soundVolume;
+    }
+   
   }
 
   decreaseSoundVolume = () => {
@@ -46,18 +53,21 @@ class Media {
       this.soundVolume  = 0;
     }
 
-    this._swapSound.volume = this.soundVolume ;
+    if(this._swapSound) {
+      this._swapSound.volume = this.soundVolume;
+    }
   }
 
   //Turn on music
   playBackgroundMusic = () => {
     //Check if user is allowed on play music background
-    if(!this.allowedMusic) {
+    if(!this.allowedMusic || !this._backgroundMusic) {
       return;
     }
 
     this._backgroundMusic.loop = true;
     this._backgroundMusic.play();
+    
   }
 
   //Play music while diamond is being swaped
@@ -67,7 +77,9 @@ class Media {
   
   //Turn off music
   stopBackgroundMusic = () => {
-    this._backgroundMusic.pause();
+    if(this._backgroundMusic) {
+      this._backgroundMusic.pause();
+    }
   }
 
   //This takes the music swaping of diamond
@@ -117,6 +129,14 @@ class Media {
     } else {
       this.allowedMusic = true;
       this.playBackgroundMusic();
+    }
+  }
+
+  onOffSoundHandler = () => {
+    if(this.allowedSound) {
+      this.allowedSound = false;
+    } else {
+      this.allowedSound = true;
     }
   }
 }

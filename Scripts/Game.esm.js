@@ -8,6 +8,7 @@ import { mouseController } from "./MouseController.esm.js";
 import { NUMBER_OF_DIAMONDS_TYPES } from "./Diamond.esm.js";
 import { resultScreen } from "./ResultScreen.esm.js";
 import { userData } from "../Data/UserData.esm.js";
+import { mainMenu } from "./MainMenu.esm.js";
 
 const SWAPING_SPEED = 8;
 export const DIAMONDS_ARRAY_WIDTH = 8;
@@ -25,6 +26,7 @@ class Game extends Common {
     const {leftMovements, pointsToWin, board} = gameLevelsInfo[lvl - 1];
     this.gameState = new GameState(lvl, leftMovements, pointsToWin, board, media.diamondsSprite)
     this.changeScreen(canvas.element, SCREEN_OBJECT.VISIBLE_SCREEN)
+    this.changeScreen(mainMenu.settingsLayerElement, SCREEN_OBJECT.VISIBLE_SCREEN);
     window.removeEventListener(DATALOADED_EVENT_NAME, this.playLevel)
     media.isInLevel = true;
     media.playBackgroundMusic();
