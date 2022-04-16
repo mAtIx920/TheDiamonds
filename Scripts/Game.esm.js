@@ -26,6 +26,8 @@ class Game extends Common {
     this.gameState = new GameState(lvl, leftMovements, pointsToWin, board, media.diamondsSprite)
     this.changeScreen(canvas.element, SCREEN_OBJECT.VISIBLE_SCREEN)
     window.removeEventListener(DATALOADED_EVENT_NAME, this.playLevel)
+    media.isInLevel = true;
+    media.playBackgroundMusic();
     this.animate();
   }
 
@@ -93,6 +95,7 @@ class Game extends Common {
       }
 
       this.swapDiamonds();
+      media.swapAudio();
       this.gameState.isSwaping = true;
       this.gameState.decreasePointsMovement();
       mouseController.state = 0;
@@ -428,6 +431,8 @@ class Game extends Common {
       !this.gameState.getIsMoving() && 
       !this.gameState.getIsSwaping()
     ) {
+      media.isInLevel =  false;
+      media.stopBackgroundMusic();
       const isPlayerWin = this.gameState.isPlayerWon();
       const currentLevel = Number(this.gameState.level);
 

@@ -30,6 +30,18 @@ class Loader extends Common {
     return image;
   }
 
+  loadAudio = soundUrl => {
+    this.changeScreen(this.element, SCREEN_OBJECT.VISIBLE_SCREEN);
+    this.isAllLoaded = false;
+    this.totalCounter++;
+
+    const audio = new Audio();
+    audio.src = soundUrl;
+    audio.addEventListener('canplaythrough', e => this.loadItem(e), false);
+
+    return audio;
+  }
+
   //Function which manage for loading items of the game
   loadItem = e => {
     e.target.removeEventListener(e.type, this.loadItem, false);

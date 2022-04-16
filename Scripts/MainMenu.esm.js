@@ -1,6 +1,7 @@
 import Common, { SCREEN_OBJECT } from './Common.esm.js';
 import { levelSelect } from './LevelSelect.esm.js';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from './Canvas.esm.js';
+import { settings } from './Settings.sem.js';
 
 export const SCALE_PROPERTY = '--scale-value';
 const START_GAME_BUTTON_ID = 'js-start-game';
@@ -30,8 +31,8 @@ class MainMenu extends Common {
     this.changeScreen(levelSelect.element, SCREEN_OBJECT.VISIBLE_SCREEN)
   }
 
-  showSettingsScreen() {
-    console.log('Opcje ustawienia')
+  showSettingsScreen = () => {
+    this.changeScreen(settings.element, SCREEN_OBJECT.VISIBLE_SCREEN);
   }
 
   //Function which answer for resizeing game window
