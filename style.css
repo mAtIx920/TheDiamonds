@@ -168,6 +168,77 @@
   background-image: url("./SourceFolder/images/button-restart-hover.png");
 }
 
+/* Styles setting layout */
+.setting-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 125px 200px;
+  z-index: 10;
+  background-image: url("./SourceFolder/images/settings-screen.png");
+  background-color: rgba(100, 100, 100, .3);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 350px;
+  filter: blur(2px);
+}
+
+.setting-screen__buttons-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.setting-screen__button {
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  background-color: transparent;
+  background-size: 50px;
+  cursor: pointer;
+}
+
+.setting-screen__button--is-music {
+  background-image: url("./SourceFolder/images/button-music.png");
+}
+
+.setting-screen__button--is-music:hover {
+  background-image: url("./SourceFolder/images/button-music-hover.png");
+}
+
+.setting-screen__button--is-up {
+  background-image: url("./SourceFolder/images/button-plus.png");
+}
+
+.setting-screen__button--is-up:hover {
+  background-image: url("./SourceFolder/images/button-plus-hover.png");
+}
+
+.setting-screen__button--is-down {
+  background-image: url("./SourceFolder/images/button-minus.png");
+}
+
+.setting-screen__button--is-down:hover {
+  background-image: url("./SourceFolder/images/button-minus-hover.png");
+}
+
+.setting-screen__button--is-sound {
+  background-image: url("./SourceFolder/images/button-sound.png");
+}
+
+.setting-screen__button--is-sound:hover {
+  background-image: url("./SourceFolder/images/button-sound-hover.png");
+}
+
+.setting-screen__button--is-exit {
+  background-image: url("./SourceFolder/images/button-exit.png");
+}
+
+.setting-screen__button--is-exit:hover {
+  background-image: url("./SourceFolder/images/button-exit-hover.png");
+}
+
 /* class which cover screen layout */
 .hidden {
   display: none;
